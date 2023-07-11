@@ -4,6 +4,7 @@ mongoose.connect(process.env.MONGODB_URL,
 {   
     useNewUrlParser: true,
     useUnifiedTopology:true,
+    dbName:"Auth"
     // useFindAndModify: false,
     // useCreateIndex: true,
 })
