@@ -1,8 +1,18 @@
 GET http://localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGFlOGUzMWJjMTMxMGU0NmJjNDVlYzQiLCJpYXQiOjE2ODkxODA5MzMsImV4cCI6MTY4OTE4NDUzMywiYXVkIjoiNjRhZThlMzFiYzEzMTBlNDZiYzQ1ZWM0IiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ._GVBzWW_jPhInwFB4j6hvJKf-lWK3YOPWZ0UQ-MlcTI
 
 ###
 
 POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email":"uzumakki@gmail.com",
+    "password":"12345"
+}
+
+### Login
+POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
