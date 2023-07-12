@@ -3,6 +3,7 @@ const router = express.Router()
 const createError = require("http-errors")
 const User = require('../Models/User.js')
 const { authSchema } = require('../Helpers/Validation.js')
+const { signAccessToken } = require('../Helpers/Jwt.js')
 
 router.post('/register', async(req,res,next) => {
     try {
@@ -11,13 +12,14 @@ router.post('/register', async(req,res,next) => {
 
         const result = await authSchema.validateAsync(req.body)
 
-        const doesExist = await User.findOne({email:result.email})
-        if (doesExist) throw createError.Conflict(`${email} is already been registered.`)
+        const doesExist = await User.findOne({ email: result.email})
+        console.log(doesExist);
+        if (doesExist) throw createError.Conflict(`${result.email} is already been registered.`)
 
-        const user = new User({email, password})
+        const user = new User(result)
         const savedUser = await user.save()
-
-        res.send(savedUser)
+        const accessToken = await signAccessToken(savedUser.id)
+        res.send({accessToken})
     } catch (error) {
         if (error.isJoi === true) error.status = 422
         next(error)
