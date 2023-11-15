@@ -4,6 +4,7 @@ const createError = require("http-errors")
 require('dotenv').config()
 require('./Helpers/init_mongodb')
 const { verifyAccessToken } = require('./Helpers/Jwt.js')
+require('./Helpers/init_redis.js')
 
 const AuthRoute = require('./Routes/Auth.js')
 
@@ -13,7 +14,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 app.get('/', verifyAccessToken, async(req,res,next) => {
-    const userEmail = req.payload.email;
     res.send(req.payload)
 })
 
